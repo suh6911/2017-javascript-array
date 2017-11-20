@@ -1,12 +1,20 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <script type="text/javascript">
         function check_string() {
-          // TODO : 여기에 여러분이 직접 코딩을 해주세요.          
-          return true;
-        }
-
+	var count=0;
+	for(j=0;j<arguments.length;j++){
+		var one = /\(/g;
+		var parenthesis =  arguments[j].match(/\(/g);
+		var parenthesis1 = arguments[j].match(/\)/g);
+	}
+	count = parenthesis.length - parenthesis1.length;
+	if(count==0)
+		return true;
+	else
+		return false;
+}
         expect(check_string('(())())'), false);
         expect(check_string('(((()())()'), false);
         expect(check_string('(()())((()))'), true);
