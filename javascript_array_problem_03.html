@@ -3,45 +3,45 @@
 <head>
     <script type="text/javascript">
         function minimum_cost(houses) {
-	var srt = new Array();
+	var srt = new Array();	//houses를 sort한 배열
 	for(i=0;i<houses.length;i++){
 		srt[i] = new Array();
 	}
-	var result =0;
-	var temp=0;
-	var index=0;
+	var result =0;	//최종결과
+	var temp=0;	//중간 저장값
+	var index=0;	//집에 칠한 색을 구별해주는 값
 	for(i=0;i<houses.length;i++){
 		for(j=0;j<3;j++){
 			srt[i][j] = houses[i][j];
 			}
-			srt[i].sort(function(a,b){
+			srt[i].sort(function(a,b){	//houses를 오름차순으로 정렬한다.
 				return a-b;
 			});
 		}
 	for(i=0;i<houses.length;i++){
-		for(j=0;j<3;j++){
-			if( i==0 && j==0){
-				temp = srt[i][0];
+		for(j=0;j<3;j++){	//3가지 색이므로 3까지 반복한다.
+			if( i==0 && j==0){	//처음집일 때
+				temp = srt[i][0];	//가장작은 값을 지정한다.
 				for(k=0;k<3;k++){
 					if(temp == houses[i][k]){
-						index=k;
+						index=k;	//처음집이 칠해진 색을 구별한다.
 						break;
 					}
 				}
 				result+=temp;
 			}
-			else if(j==0){
-				temp = srt[i][0];
-				temp2=0;
+			else if(j==0){	//다음집으로 넘어갔을 때
+				temp = srt[i][0];	//가장 작은 비용을 지정한다.
+				temp2=0;		//최종 결과값
 				for(k=0;k<3;k++){
-					if(temp == houses[i][k]){
-						if(index ==k){
-							if((srt[i-1][1]-srt[i-1][0]) < (srt[i][1]-srt[i][0])){
+					if(temp == houses[i][k]){	//가장작은비용의 색을 구별한다.
+						if(index ==k){	//이전집과 같은 색이라면
+							if((srt[i-1][1]-srt[i-1][0]) < (srt[i][1]-srt[i][0])){	//현재 집의 가장작은비용과 중간비용의 차이가 이전집보다 크다면
 								result -= srt[i-1][0];
 								result +=srt[i-1][1];
 								temp2 = srt[i][0];
 								}
-							else{
+							else{	//아니라면 현재 집에 칠할 색을 바꾸고 그 색을 구별한다.
 								temp2=srt[i][1];
 								for(l=0;l<3;l++){
 									if(temp2 == houses[i][l])
@@ -50,7 +50,7 @@
 							}
 						}
 						else{
-							temp2=srt[i][0];
+							temp2=srt[i][0];	//이전집과 다른 색을 칠한다면 가장 작은 비용을 지정하고 그 색을 구별한다.
 							index=k;
 						}
 					}
